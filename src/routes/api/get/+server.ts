@@ -18,3 +18,13 @@ export async function POST( {request} ) {
     return(json({status:'OK', link:url}))
 
 }
+
+
+export async function GET({ url }) {
+  const slug = url.searchParams.get('slug');
+  if (!slug) {
+    return json({ status: 'error', message: 'missing slug' }, { status: 400 });
+  }
+  const targetUrl = await redis.get(slug);
+  return json({ status: 'OK', link: targetUrl });
+}
