@@ -8,18 +8,20 @@ const redis = new Redis({
 });
 
 export async function load({ params }) {
+  console.log('🟢 load called with slug:', params.slug);
   const slug = params.slug;
   const targetUrl = await redis.get(slug);
+  console.log('🔵 targetUrl from Redis:', targetUrl);
 
   if (targetUrl && typeof targetUrl === 'string') {
-    // 如果找到目标 URL，立即重定向
+    console.log('🟠 redirecting to:', targetUrl);
     throw redirect(302, targetUrl);
   } else {
-    // 如果没找到，返回 404 或显示错误页面
-    // 这里可以返回一个对象，让页面显示错误信息
+    console.log('🟡 no target found, returning 404');
     return {
       status: 404,
-      error: new Error('Short link not found')
+      slug,
+      message: 'Short link not found'
     };
   }
 }
