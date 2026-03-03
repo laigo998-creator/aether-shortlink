@@ -54,7 +54,7 @@ modified freely but it's adviced that the main point per page is retained.
     <h2>Currently shortened links (Slug, Url)</h2>
     <ul>
         {#each Object.entries(entries) as [key, value]}
-            <li><a href="https://{PUBLIC_SITE_URL}/{key}">{key}</a> = {value}</li>
+           <li><a href="/{key}" target="_blank">{key}</a> = {value}</li>
         {/each}
     </ul>
 
